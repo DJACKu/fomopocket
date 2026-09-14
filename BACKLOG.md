@@ -12,7 +12,7 @@ The technical "why" is in `NOTES.md`; here, only what remains to be done.
 The fix is written but has never run. Reload the extension **entirely**
 (`brave://extensions` → ↻ on the FOMO Pocket card): the manifest changed, a ↻ of the frame is not enough.
 
-Then: open the panel → **Buy** view → read the log (click on `0.1.8 · M3` in the banner).
+Then: open the panel → **Buy** view → read the log (click on the version in the banner).
 
 Three possible outcomes, to distinguish before touching the code:
 
@@ -39,11 +39,10 @@ Taken from `fomo-sidepanel-prompt.md` §6 and the M0 checklist in `NOTES.md`. No
 
 - [ ] **Sound** — does the site's audio alert fire after a first click in the frame? (M0 checklist item 4, never filled in)
 - [ ] **Search → chart** — searching a ticker / an address in the site's search does open the token in the bottom pane, feed still visible above
-- [ ] **Kill-switch 🧪** — actually restores the raw site in the frame
+- [ ] **Kill-switch 💀** — actually restores the raw site in the frame
 - [ ] **Panel persistence** — stays open when switching tabs
 - [ ] **Zero console errors** — panel *and* frame
 - [ ] **Normal-tab non-regression** — fomo.family in an ordinary tab must remain intact. High priority now: v0.1.7 adds two side effects that affect the normal tab (see §5)
-
 ---
 
 ## 4. Spec not implemented
@@ -52,7 +51,7 @@ Taken from `fomo-sidepanel-prompt.md` §6 and the M0 checklist in `NOTES.md`. No
   Not done: no storage key for it (`fpView`, `fpFeedH`, `fpCollapsed` only). `frame/inject.js`
   already knows `location.pathname` and sends it in `fp-report` — half the work is there.
 - **Settings gear** in the banner (§2.6, marked "optional"). The banner currently has
-  status dot / 🧪 / ↻ / 🍪. To be decided: probably useless, the settings already fit in the existing gestures.
+  status dot / 💀 / ↻ / 🍪 / 🔍 / ↗. To be decided: probably useless, the settings already fit in the existing gestures.
 
 ---
 

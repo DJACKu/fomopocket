@@ -35,8 +35,8 @@ If the frame shows the login screen, log in on fomo.family in a normal tab first
 | Control | What it does |
 |---|---|
 | ● status dot | Grey: loading. Green: frame loaded and every selector matched. Amber: frame loaded but some selectors are missing (layout degraded, hover for the list). |
-| `0.1.8 · M3` | Click the version to show / hide the diagnostics log. |
-| 🧪 | Kill-switch: shows the raw, unstyled site inside the panel. Click again to re-apply the condensed layout. Handy to find a new selector after a FOMO deploy. |
+| `0.1.10 - by @0xDJACK` | Click the version to show / hide the diagnostics log (read-only: cookie rewrites, selector report, DNR status, network events). |
+| 💀 | Kill-switch: shows the raw, unstyled site inside the panel. Click again to re-apply the condensed layout. Harmless and reversible; handy to find a new selector after a FOMO deploy. |
 | ↻ | Reload the frame (re-unregisters the site's service worker first). |
 | 🍪 | Force a pass of the cookie rewrite (SameSite=None), then reload. Use it if the frame is suddenly logged out. |
 | 🔍 | Print DNR ruleset status and recent network events to the log. |
@@ -51,6 +51,8 @@ If the frame shows the login screen, log in on fomo.family in a normal tab first
 - Modals (call details, positions) and hover cards are re-anchored to the bottom of the panel as full-width sheets.
 
 Hidden on purpose: logo, balances, ticker bar, Split buttons, About block, Swaps / Thesis tabs, closed trades, Open/Closed toggle.
+
+**Language.** The extension's own UI is English. Everything inside the frame is fomo.family itself, which picks its language from your browser unless you chose one in the site's settings. To change it, open fomo.family in a normal tab (↗), account menu → settings → language. The choice is stored by the site and the panel follows it.
 
 ### Limitations
 
@@ -98,7 +100,7 @@ If that is not acceptable to you, do not install it.
 The extension depends on someone else's DOM, so it is built for fast repair rather than prevention:
 
 1. The status dot turns **amber** and the log lists the unmatched selectors (`selectors: 2/24 missing (chart, holders) on /tokens/…`).
-2. Click **🧪** to see the raw site, right-click → **Inspect** inside the panel, find the new structure.
+2. Click **💀** to see the raw site, right-click → **Inspect** inside the panel, find the new structure.
 3. Fix the selector in **`frame/selectors.js`** (every selector lives there, each with a description). Do not touch `condense.css` unless the layout itself must change.
 4. Reload the extension from `brave://extensions` (↻ on the card) and reopen the panel.
 5. Log what broke and how you fixed it in the "Breakage after FOMO deploys" section of `NOTES.md`.
@@ -130,4 +132,4 @@ Documents:
 
 ## License
 
-[MIT](LICENSE) — FOMOPocket by @OxDJACK. FOMO Pocket is an independent hobby project and is not affiliated with, endorsed by, or supported by fomo.family or Privy.
+[MIT](LICENSE) — FOMOPocket by @0xDJACK. FOMO Pocket is an independent hobby project and is not affiliated with, endorsed by, or supported by fomo.family or Privy.

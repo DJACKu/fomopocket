@@ -6,6 +6,10 @@ const dot = document.getElementById('dot');
 const log = document.getElementById('log');
 const soundGate = document.getElementById('soundGate');
 
+// Version comes from the manifest so the header never drifts from it.
+const AUTHOR = 'by @0xDJACK';
+document.getElementById('version').textContent = `${chrome.runtime.getManifest().version} - ${AUTHOR}`;
+
 function say(line) {
   log.textContent += `${new Date().toLocaleTimeString()} ${line}\n`;
   log.scrollTop = log.scrollHeight;
@@ -34,11 +38,12 @@ const FOMO_URL = 'https://fomo.family/';
 
 // Mandatory sequence: unregister the site's service worker, THEN navigate.
 // Otherwise it serves the page with the original frame-ancestors CSP and the frame is refused.
+// The service worker also picks the entry URL.
 async function loadFrame() {
   dot.className = 'dot';
   const r = await chrome.runtime.sendMessage({ type: 'prepare-frame' }).catch((e) => ({ ok: false, error: e.message }));
   say(r.ok ? 'site sw: unregistered, loading the frame' : `site sw: failed (${r.error}), trying anyway`);
-  frame.src = FOMO_URL;
+  frame.src = r.url || FOMO_URL;
 }
 
 function reloadFrame() {

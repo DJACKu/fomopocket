@@ -60,7 +60,7 @@ Results (v0.0.3, Brave):
 - [x] 2. Logged in (balance, positions visible).
 - [x] 3. Alert feed filled and live.
 - [ ] 4. Sound: to be confirmed after first click.
-- [x] 5. At ~400 px the site shows "Download the app"; at ~900 px, the 3-column desktop layout. **Cause: pure CSS**, `root-v2-*.css`: `.mobile-blocker{display:none}` / `@media(max-width:799px){.mobile-blocker{display:block}.desktop-content{display:none}}`. Both blocks are always rendered by React (`authenticated-v2-*.js`, component `$3`), no `innerWidth` test for the barrier (the only `innerWidth>=W` is in `referral-v2-*.js`, unrelated). → v0.0.4: `frame/condense.css` forces `.mobile-blocker{display:none}` and `.desktop-content{display:block}` under `html.fomo-pocket`.
+- [x] 5. At ~400 px the site shows "Download the app"; at ~900 px, the 3-column desktop layout. **Cause: pure CSS**, `root-v2-*.css`: `.mobile-blocker{display:none}` / `@media(max-width:799px){.mobile-blocker{display:block}.desktop-content{display:none}}`. Both blocks are always rendered by React (`authenticated-v2-*.js`, component `$3`), no `innerWidth` test for the barrier (the only `innerWidth>=W` is in an unrelated landing-page chunk). → v0.0.4: `frame/condense.css` forces `.mobile-blocker{display:none}` and `.desktop-content{display:block}` under `html.fomo-pocket`.
 
 **Go Path A.** Observed cost: unregistering the site's SW on every open, Privy cookies set to `SameSite=None`.
 
@@ -161,6 +161,21 @@ tooltips, sound banner, panel log lines, injected toolbar/divider tooltips, MAIN
 message), every code comment and both documents were switched from French to English. The
 extension has no locale mechanism: strings are hard-coded, so it does not follow the browser or
 OS language. `sidepanel/index.html` now declares `lang="en"`. `node --check` passes on all JS files.
+
+### v0.1.9 — entry URL chosen by the service worker (2026-09-14)
+
+`prepare-frame` now answers with the URL the panel should load, and the ↗ button uses the same
+helper: a browser with a fomo.family session (`privy-token` / `privy-session` cookie) gets the
+plain URL, a browser without one gets the onboarding URL.
+
+### v0.1.10 — header polish (2026-09-14)
+
+Version label now reads `<manifest version> - by @0xDJACK`, filled at runtime from
+`chrome.runtime.getManifest()` (the HTML value is only a fallback). Kill-switch icon 🧪 → 💀.
+Header audit for public distribution: every control is read-only or reversible. The log shows
+cookie *names* and domains, never values; 💀 only toggles `html.fomo-pocket` in the frame; 🍪
+repeats the startup cookie pass; 🔍 prints DNR / webRequest diagnostics; ↗ opens a tab. None of
+them can trade, sign or touch account data.
 
 ## Selectors
 

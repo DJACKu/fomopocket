@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "FOMO Pocket",
-  "version": "0.1.8",
+  "version": "0.1.10",
   "description": "fomo.family (alert feed + token page) re-hosted and condensed inside the browser side panel. Unpacked, personal-use extension.",
   "permissions": [
     "sidePanel",

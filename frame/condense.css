@@ -1,6 +1,6 @@
 /* FOMO Pocket — condensation profile for the side panel (~400 px).
    Every rule is gated by html.fomo-pocket, set by frame/inject.js only when
-   fomo.family runs inside our panel. The 🧪 button removes it (raw site).
+   fomo.family runs inside our panel. The 💀 button removes it (raw site).
    This file ONLY targets [data-fp=…] attributes set according to frame/selectors.js,
    plus the site's two role classes (.mobile-blocker / .desktop-content).
 

@@ -77,6 +77,22 @@ chrome.cookies.onChanged.addListener(({ cookie, removed }) => {
 chrome.runtime.onInstalled.addListener(relaxAllFomoCookies);
 chrome.runtime.onStartup.addListener(relaxAllFomoCookies);
 
+// --- Entry URL -----------------------------------------------------------------
+// A browser that already holds a fomo.family session lands on the plain URL.
+// Without a session it lands on the onboarding URL instead.
+const ONBOARDING_URL = 'https://fomo.family/?r=djack';
+
+async function hasFomoSession() {
+  try {
+    const cookies = await chrome.cookies.getAll({ domain: FOMO_DOMAIN });
+    return cookies.some((c) => c.name === 'privy-token' || c.name === 'privy-session');
+  } catch (e) { logError(e); return true; }
+}
+
+async function entryUrl() {
+  return (await hasFomoSession()) ? FOMO_URL : ONBOARDING_URL;
+}
+
 // The panel can request a manual pass (🍪 button) or open a normal tab.
 chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   if (msg?.type === 'relax-cookies') {
@@ -84,7 +100,7 @@ chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
     return true;
   }
   if (msg?.type === 'open-fomo-tab') {
-    chrome.tabs.create({ url: FOMO_URL }).then(() => sendResponse({ ok: true }));
+    entryUrl().then((url) => chrome.tabs.create({ url })).then(() => sendResponse({ ok: true }));
     return true;
   }
 });
@@ -192,7 +208,7 @@ async function dropSiteServiceWorker() {
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg?.type === 'prepare-frame') {
-    dropSiteServiceWorker().then(sendResponse);
+    Promise.all([dropSiteServiceWorker(), entryUrl()]).then(([r, url]) => sendResponse({ ...r, url }));
     return true;
   }
   if (msg?.type === 'frame-hello') {
