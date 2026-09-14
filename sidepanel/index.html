@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>FOMO Pocket</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header id="bar">
+    <span id="dot" class="dot" title="Frame status"></span>
+    <span id="title">FOMO Pocket <small id="version" title="Click to show / hide the log">0.1.8 · M3</small></span>
+    <button id="raw" title="Raw site: remove the FOMO Pocket CSS inside the frame (kill-switch)">🧪</button>
+    <button id="reload" title="Reload the frame">↻</button>
+    <button id="cookies" title="Rewrite fomo.family cookies to SameSite=None, then reload">🍪</button>
+    <button id="dnr" title="DNR / network diagnostics">🔍</button>
+    <button id="tab" title="Open fomo.family in a normal tab">↗</button>
+  </header>
+  <div id="frameWrap">
+    <!-- src is set by index.js once the site's service worker has been unregistered -->
+    <iframe id="frame" allow="autoplay; clipboard-read; clipboard-write"></iframe>
+    <div id="soundGate" hidden>Click to enable sound</div>
+  </div>
+  <pre id="log" hidden></pre>
+  <script type="module" src="index.js"></script>
+</body>
+</html>

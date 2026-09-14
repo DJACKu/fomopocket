@@ -1,0 +1,62 @@
+{
+  "manifest_version": 3,
+  "name": "FOMO Pocket",
+  "version": "0.1.8",
+  "description": "fomo.family (alert feed + token page) re-hosted and condensed inside the browser side panel. Unpacked, personal-use extension.",
+  "permissions": [
+    "sidePanel",
+    "storage",
+    "scripting",
+    "cookies",
+    "tabs",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
+    "declarativeNetRequestFeedback",
+    "webRequest",
+    "browsingData"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://fomo.family/*", "https://*.fomo.family/*"],
+      "js": ["frame/no-sw.main.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://fomo.family/*", "https://*.fomo.family/*"],
+      "js": ["frame/selectors.js", "frame/inject.js"],
+      "css": ["frame/condense.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": ["https://*.privy.io/*"],
+      "js": ["frame/privy-ancestors.main.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "world": "MAIN"
+    }
+  ],
+  "host_permissions": [
+    "https://fomo.family/*",
+    "https://*.fomo.family/*",
+    "https://auth.privy.io/*",
+    "https://*.privy.io/*",
+    "https://*.rpc.privy.systems/*"
+  ],
+  "side_panel": { "default_path": "sidepanel/index.html" },
+  "action": { "default_title": "FOMO Pocket" },
+  "background": { "service_worker": "background/sw.js", "type": "module" },
+  "commands": {
+    "toggle-panel": {
+      "suggested_key": { "default": "Alt+Shift+F" },
+      "description": "Open the FOMO Pocket panel"
+    }
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      { "id": "frame", "enabled": true, "path": "rules/frame.json" }
+    ]
+  }
+}
