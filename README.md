@@ -12,7 +12,7 @@ Because it is the real site, everything already works: your login, the live WebS
 
 ## Requirements
 
-- A Chromium browser with the Side Panel API: **Brave**, **Chrome 114+**, Edge, etc. Tested on Brave.
+- A Chromium browser with the Side Panel API: **Brave**, **Chrome 114+**, Edge, etc. Nothing in the extension is Brave-specific (standard Chrome extension APIs only), but it has so far only been tested on Brave. Reports from Chrome welcome.
 - A fomo.family account you are already logged into in that browser.
 - No build tools. Plain HTML/CSS/JS, no dependencies.
 
@@ -130,4 +130,4 @@ Documents:
 
 ## License
 
-[MIT](LICENSE). FOMO Pocket is an independent hobby project and is not affiliated with, endorsed by, or supported by fomo.family or Privy.
+[MIT](LICENSE) — FOMOPocket by @OxDJACK. FOMO Pocket is an independent hobby project and is not affiliated with, endorsed by, or supported by fomo.family or Privy.
