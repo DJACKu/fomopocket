@@ -1,0 +1,2 @@
+# Normalise line endings to LF in the repository; checkout follows core.autocrlf.
+* text=auto eol=lf
